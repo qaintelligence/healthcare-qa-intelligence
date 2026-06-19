@@ -1,0 +1,23 @@
+node_modules/
+dist/
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/blob-report/
+# Cypress
+/cypress/videos/
+/cypress/screenshots/
+/cypress/downloads/
+# Visual baselines diffs (keep committed baselines, ignore generated diffs/actuals)
+**/*-actual.png
+**/*-diff.png
+# Env / secrets
+.env
+.env.*
+!.env.example
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.log

@@ -1,0 +1,52 @@
+{
+  "name": "ai-healthcare-test-automation",
+  "version": "1.0.0",
+  "description": "AI-powered end-to-end test automation for healthcare patient-portal workflows, with Cypress + Playwright. Features self-healing locators, AI-assisted authoring, visual & accessibility AI checks, synthetic test-data generation, and security testing.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "mock": "node mock-app/server.mjs",
+    "mock:ci": "node mock-app/server.mjs &",
+    "pretest": "node -e \"console.log('Start the mock app with: npm run mock')\"",
+    "pw": "playwright test",
+    "pw:headed": "playwright test --headed",
+    "pw:ui": "playwright test --ui",
+    "pw:report": "playwright show-report",
+    "cy": "cypress run",
+    "cy:open": "cypress open",
+    "e2e": "start-server-and-test mock http://127.0.0.1:4300 \"playwright test && cypress run\"",
+    "e2e:pw": "start-server-and-test mock http://127.0.0.1:4300 \"playwright test\"",
+    "e2e:cy": "start-server-and-test mock http://127.0.0.1:4300 \"cypress run\"",
+    "typecheck": "tsc --noEmit",
+    "ai:author": "node --experimental-strip-types shared/ai/nl-to-steps.ts"
+  },
+  "keywords": [
+    "test-automation",
+    "playwright",
+    "cypress",
+    "ai",
+    "self-healing",
+    "accessibility",
+    "visual-regression",
+    "security-testing",
+    "healthcare",
+    "qa"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^22.0.0",
+    "axe-core": "^4.10.0",
+    "cypress": "^13.15.0",
+    "cypress-axe": "^1.5.0",
+    "start-server-and-test": "^2.0.8",
+    "typescript": "^5.6.0"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.0.0"
+  }
+}
