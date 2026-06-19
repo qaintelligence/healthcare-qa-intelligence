@@ -16,6 +16,10 @@ Selenium agent.
 > green for anyone with no accounts and no real patient data. See
 > [ADR 0001](docs/adr/0001-bundled-mock-as-system-under-test.md) for why.
 
+**Live demo of the mock portal:** _deploying…_ &nbsp;·&nbsp; or spin up your own:
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/qaintelligence/healthcare-qa-intelligence)
+(demo login: `patient@example.com` / `Test1234!`)
+
 ## Why I built this
 
 I spend my day building Cypress/TypeScript automation for a healthcare portal, and I kept

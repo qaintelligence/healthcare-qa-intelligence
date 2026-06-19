@@ -1,0 +1,11 @@
+# Render Blueprint — deploys the mock patient portal as a live demo.
+# One-click: https://render.com/deploy?repo=https://github.com/qaintelligence/healthcare-qa-intelligence
+# or: Render dashboard → New → Blueprint → connect this repo.
+services:
+  - type: web
+    name: mediportal-demo
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    autoDeploy: true

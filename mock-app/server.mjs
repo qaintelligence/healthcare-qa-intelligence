@@ -6,8 +6,10 @@
 import http from 'node:http';
 import crypto from 'node:crypto';
 
-const PORT = process.env.MOCK_PORT ? Number(process.env.MOCK_PORT) : 4300;
-const HOST = '127.0.0.1';
+// PORT: hosts like Render inject $PORT; locally fall back to MOCK_PORT or 4300.
+// HOST: bind 0.0.0.0 when running on a host (PORT set), else loopback for local dev.
+const PORT = Number(process.env.PORT ?? process.env.MOCK_PORT ?? 4300);
+const HOST = process.env.HOST ?? (process.env.PORT ? '0.0.0.0' : '127.0.0.1');
 
 // --- Demo credentials (synthetic) ---
 const USER = { email: 'patient@example.com', password: 'Test1234!', name: 'Jordan Rivera', mrn: 'MRN-0001' };
