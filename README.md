@@ -5,7 +5,7 @@ Playwright and Cypress** from a shared, framework-agnostic engine — with self-
 locators, accessibility/visual/security gates, synthetic test data, and an autonomous
 Selenium agent.
 
-[![e2e](https://github.com/agiletester365-spec/healthcare-qa-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/agiletester365-spec/healthcare-qa-intelligence/actions/workflows/ci.yml)
+[![e2e](https://github.com/qaintelligence/healthcare-qa-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/qaintelligence/healthcare-qa-intelligence/actions/workflows/ci.yml)
 ![Playwright](https://img.shields.io/badge/Playwright-2EAD33?logo=playwright&logoColor=white)
 ![Cypress](https://img.shields.io/badge/Cypress-69D3A7?logo=cypress&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
@@ -16,15 +16,19 @@ Selenium agent.
 > green for anyone with no accounts and no real patient data. See
 > [ADR 0001](docs/adr/0001-bundled-mock-as-system-under-test.md) for why.
 
-## Why this project exists
+## Why I built this
 
-Healthcare portals have workflows where correctness is not optional — booking the wrong slot,
-mishandling a refill, or leaking an identifier into a URL are real harms. I wanted a
-reference automation suite that (a) models those workflows, (b) demonstrates *how* I make a
-UI suite fast and non-flaky rather than just that it passes, and (c) is fully runnable and
-safe for anyone to clone. Real portals can't be used (unauthorized, non-reproducible), so the
-suite runs against a small mock app I own — the transferable value is the framework and the
-engineering decisions, documented in [ADRs](docs/adr).
+I spend my day building Cypress/TypeScript automation for a healthcare portal, and I kept
+wanting a place to work out the *engineering* side of test automation in the open — not "look,
+the tests pass," but the parts that actually decide whether a suite survives a year: stable
+selectors, real parallel isolation, web-first waits, and CI you trust.
+
+Healthcare felt like the right domain because the failure modes are concrete — booking the
+wrong slot, fumbling a refill, leaking an identifier into a URL. I obviously can't point a
+suite at a real patient portal (unauthorized, and impossible for anyone else to reproduce), so
+I wrote a small mock portal I own and test against that. The mock is throwaway; the framework,
+the decisions, and the bugs I had to fix are the point — those are written up in the
+[ADRs](docs/adr) and the [changelog](CHANGELOG.md).
 
 ## Modeled workflows
 
@@ -166,6 +170,34 @@ docs/            ADRs, test strategy, deployment, limitations, screenshots
 Authorized testing only. Defaults to the bundled synthetic mock — no real PHI. Point
 `BASE_URL` / the agent's `--url` only at systems you own or are authorized to test, never
 production or third-party healthcare systems. See [SECURITY.md](SECURITY.md).
+
+## How this was built (and the AI part)
+
+I built this with AI assistance (mostly Claude) — and since AI-in-testing is half the point of
+the project, hiding that would be silly. What I want to be clear about is the division of
+labour, because that's the part that matters:
+
+- **The decisions are mine.** Why the mock app is the system under test, why self-healing
+  resolves on existence instead of visibility, why assertions are entity-scoped for parallel
+  safety — those are judgment calls, written up in the [ADRs](docs/adr) with the alternatives
+  I rejected.
+- **The bugs were real.** Getting the suite green wasn't one prompt. The
+  [changelog](CHANGELOG.md) lists the actual failures I hit and root-caused — a visibility-race
+  in the locator engine, a Cypress `.should()`-callback misuse, OS-specific visual baselines
+  breaking CI. AI helped me write the fixes; figuring out *what* was wrong was the work.
+- **I can explain and extend any of it.** That's the real test, and it's why the docs read the
+  way they do — they're as much my notes as they are documentation.
+
+If you're evaluating this: read an ADR and the changelog before the test files. They show the
+thinking, which is the thing AI doesn't do for you.
+
+### What I'd change with more time
+
+- Add a unit layer under `shared/` (the engine is only exercised end-to-end today).
+- Swap the mock's in-memory state for per-worker isolation so I can assert on counts again.
+- Wire a visual-diff service (Argos/Percy) instead of committed per-OS baselines.
+
+These and the rest are tracked as real [issues](../../issues) and on the [roadmap](ROADMAP.md).
 
 ## License
 
