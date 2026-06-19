@@ -1,0 +1,28 @@
+# Bring up the mock app and run the Playwright suite against it in containers.
+#   docker compose up --build --abort-on-container-exit
+#
+# `app` serves the mock portal; `playwright` waits for it to be healthy, then runs the suite
+# in the official Playwright image (browsers preinstalled).
+services:
+  app:
+    build: .
+    ports:
+      - "4300:4300"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4300/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.48.0-jammy
+    depends_on:
+      app:
+        condition: service_healthy
+    working_dir: /work
+    volumes:
+      - .:/work
+    environment:
+      BASE_URL: http://app:4300
+      CI: "true"
+    command: sh -c "npm ci && npx playwright test --project=chromium"
