@@ -1,0 +1,4 @@
+# Selenium 4 includes Selenium Manager, which auto-downloads the matching chromedriver.
+# Requires a local Chrome/Chromium install. The Anthropic call uses only the stdlib,
+# so no extra dependency is needed for the AI mode.
+selenium>=4.20.0

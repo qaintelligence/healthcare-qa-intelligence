@@ -16,6 +16,10 @@ dist/
 .env
 .env.*
 !.env.example
+# Python (selenium-agent)
+.venv/
+__pycache__/
+*.pyc
 # Editor / OS
 .DS_Store
 .idea/

@@ -88,15 +88,30 @@ Without a key, all of the above fall back to deterministic behaviour and the sui
 A single framework-agnostic engine in `shared/` powers **both** runners — see
 [docs/architecture.md](docs/architecture.md).
 
+## Bonus: autonomous Selenium AI agent
+
+Beyond scripted tests, [`selenium-agent/`](selenium-agent) contains a **Python Selenium
+agent** that drives the browser autonomously via a **perception → decision → action loop**:
+it observes the page's interactive elements, asks Claude for the next action, executes it,
+and repeats until the goal is met — with same-origin and max-step safety guards, and a
+heuristic fallback that runs without an API key.
+
+```bash
+npm run mock                       # start the portal (terminal 1)
+cd selenium-agent && pip install -r requirements.txt
+python agent.py "log in and request a prescription refill"   # terminal 2
+```
+
 ## Project layout
 
 ```
-mock-app/      Dependency-free Node patient portal (the system under test)
-shared/        AI engine, data factories, security checks — used by both suites
-playwright/    Page objects (self-healing), fixtures, specs
-cypress/       Custom commands (self-healing), specs
-docs/          Architecture + per-feature guides
-               (incl. ci-workflow.example.yml — ready-made GitHub Actions CI)
+mock-app/        Dependency-free Node patient portal (the system under test)
+shared/          AI engine, data factories, security checks — used by both suites
+playwright/      Page objects (self-healing), fixtures, specs
+cypress/         Custom commands (self-healing), specs
+selenium-agent/  Autonomous Selenium AI agent loop (Python)
+docs/            Architecture + per-feature guides
+                 (incl. ci-workflow.example.yml — ready-made GitHub Actions CI)
 ```
 
 ### Enable CI
