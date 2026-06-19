@@ -13,7 +13,6 @@ End-to-end test automation for healthcare **patient-portal workflows**, built wi
 > so `npm install && npm run e2e` is fully green — no accounts, no real systems, no PHI.
 > AI features are optional and degrade gracefully without an API key.
 
-[![e2e](https://github.com/agiletester365-spec/healthcare-qa-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/agiletester365-spec/healthcare-qa-intelligence/actions/workflows/ci.yml)
 ![Playwright](https://img.shields.io/badge/Playwright-2EAD33?logo=playwright&logoColor=white)
 ![Cypress](https://img.shields.io/badge/Cypress-69D3A7?logo=cypress&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
@@ -97,7 +96,19 @@ shared/        AI engine, data factories, security checks — used by both suite
 playwright/    Page objects (self-healing), fixtures, specs
 cypress/       Custom commands (self-healing), specs
 docs/          Architecture + per-feature guides
-.github/       CI: Playwright (chromium/firefox/webkit) + Cypress + typecheck
+               (incl. ci-workflow.example.yml — ready-made GitHub Actions CI)
+```
+
+### Enable CI
+
+A complete GitHub Actions pipeline (Playwright on chromium/firefox/webkit + Cypress +
+typecheck) ships as [`docs/ci-workflow.example.yml`](docs/ci-workflow.example.yml). To turn
+it on:
+
+```bash
+mkdir -p .github/workflows
+git mv docs/ci-workflow.example.yml .github/workflows/ci.yml
+git commit -m "ci: enable e2e workflow" && git push
 ```
 
 ## ⚠️ Responsible use
