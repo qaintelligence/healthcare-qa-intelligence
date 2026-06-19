@@ -13,7 +13,11 @@ End-to-end test automation for healthcare **patient-portal workflows**, built wi
 > so `npm install && npm run e2e` is fully green — no accounts, no real systems, no PHI.
 > AI features are optional and degrade gracefully without an API key.
 
-<!-- CI-BADGE -->
+[![e2e](https://github.com/agiletester365-spec/healthcare-qa-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/agiletester365-spec/healthcare-qa-intelligence/actions/workflows/ci.yml)
+![Playwright](https://img.shields.io/badge/Playwright-2EAD33?logo=playwright&logoColor=white)
+![Cypress](https://img.shields.io/badge/Cypress-69D3A7?logo=cypress&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ---
 
